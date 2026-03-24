@@ -89,6 +89,7 @@ export default defineConfig({
             resolve: (doc) => {
               const href = resolveHref('page', doc?.locale || DEFAULT_LOCALE, doc?.slug)!
               return {
+                message: 'Open in visual editor',
                 locations: [
                   {
                     title: doc?.name || 'Untitled',
@@ -103,6 +104,7 @@ export default defineConfig({
             resolve: (doc) => {
               const href = resolveHref('productPage', doc?.locale || DEFAULT_LOCALE, doc?.slug)!
               return {
+                message: 'Open in visual editor',
                 locations: [
                   {
                     title: doc?.title || 'Untitled',
