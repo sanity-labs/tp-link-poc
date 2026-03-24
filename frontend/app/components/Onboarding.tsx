@@ -97,8 +97,8 @@ export function PageOnboarding() {
       </svg>
       <OnboardingMessage
         message={{
-          title: 'About Page (/about) does not exist yet',
-          description: 'Get started by creating an about page.',
+          title: 'This page does not exist yet',
+          description: 'Visit the studio to get started',
         }}
         link={{
           title: 'Create Page',

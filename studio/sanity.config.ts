@@ -51,42 +51,42 @@ export default defineConfig({
         },
       },
       resolve: {
-        mainDocuments: defineDocuments([
-          {
-            route: '/',
-            filter: `_type == "settings" && _id == "siteSettings"`,
-          },
-          {
-            route: '/:slug',
-            filter: `_type == "page" && slug.current == $slug || _id == $slug`,
-          },
-          {
-            route: '/products/:slug',
-            filter: `_type == "productPage" && slug.current == $slug`,
-          },
-          {
-            route: '/:locale/products/:collection',
-            resolve(ctx) {
-              const locale = ctx.params.locale
-              if (!locale || !isValidLocale(locale)) return undefined
-              return {
-                filter: `_type == "collection" && language == $locale && slug.current == $collection`,
-                params: {locale, collection: ctx.params.collection},
-              }
-            },
-          },
-          {
-            route: '/:locale/products/:collection/:model',
-            resolve(ctx) {
-              const locale = ctx.params.locale
-              if (!locale || !isValidLocale(locale)) return undefined
-              return {
-                filter: `_type == "productPage" && language == $locale && slug.current == $model`,
-                params: {locale, collection: ctx.params.collection, model: ctx.params.model},
-              }
-            },
-          },
-        ]),
+        // mainDocuments: defineDocuments([
+        //   {
+        //     route: '/',
+        //     filter: `_type == "settings" && _id == "siteSettings"`,
+        //   },
+        //   {
+        //     route: '/:slug',
+        //     filter: `_type == "page" && slug.current == $slug || _id == $slug`,
+        //   },
+        //   {
+        //     route: '/products/:slug',
+        //     filter: `_type == "productPage" && slug.current == $slug`,
+        //   },
+        //   {
+        //     route: '/:locale/products/:collection',
+        //     resolve(ctx) {
+        //       const locale = ctx.params.locale
+        //       if (!locale || !isValidLocale(locale)) return undefined
+        //       return {
+        //         filter: `_type == "collection" && language == $locale && slug.current == $collection`,
+        //         params: {locale, collection: ctx.params.collection},
+        //       }
+        //     },
+        //   },
+        //   {
+        //     route: '/:locale/products/:collection/:model',
+        //     resolve(ctx) {
+        //       const locale = ctx.params.locale
+        //       if (!locale || !isValidLocale(locale)) return undefined
+        //       return {
+        //         filter: `_type == "productPage" && language == $locale && slug.current == $model`,
+        //         params: {locale, collection: ctx.params.collection, model: ctx.params.model},
+        //       }
+        //     },
+        //   },
+        // ]),
         locations: {
           settings: defineLocations({
             locations: [homeLocation],

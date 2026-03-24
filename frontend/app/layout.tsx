@@ -11,7 +11,6 @@ import {Toaster} from 'sonner'
 import DraftModeToast from '@/app/components/DraftModeToast'
 import Footer from '@/app/components/Footer'
 import Header from '@/app/components/Header'
-import * as demo from '@/sanity/lib/demo'
 import {sanityFetch, SanityLive} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
@@ -22,8 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
     query: settingsQuery,
     stega: false,
   })
-  const title = settings?.title || demo.title
-  const description = settings?.description || demo.description
+  const title = settings?.title || 'Tapo'
+  const description = settings?.description || []
 
   const ogImage = resolveOpenGraphImage(settings?.ogImage)
   let metadataBase: URL | undefined = undefined
@@ -66,7 +65,10 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const locale = headersList.get('x-next-locale') ?? undefined
 
   return (
-    <html lang={locale ?? 'en'} className={`${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}>
+    <html
+      lang={locale ?? 'en'}
+      className={`${inter.variable} ${ibmPlexMono.variable} bg-white text-black`}
+    >
       <body>
         <section className="min-h-screen">
           <Toaster />
