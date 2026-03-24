@@ -1,6 +1,26 @@
 import {CogIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import {Box, Text} from '@sanity/ui'
+import {type FC} from 'react'
+import {defineArrayMember, defineField, defineType, type UrlInputProps} from 'sanity'
 import type {Link, Settings} from '../../../sanity.types'
+
+const MetadataBaseInput: FC<UrlInputProps> = (props) => (
+  <Box>
+    <Box marginBottom={2}>
+      <Text size={1} muted>
+        <a
+          href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase"
+          rel="noreferrer noopener"
+          target="_blank"
+          style={{color: 'var(--card-link-color)'}}
+        >
+          More information
+        </a>
+      </Text>
+    </Box>
+    {props.renderDefault(props)}
+  </Box>
+)
 
 /**
  * Settings schema Singleton.  Singletons are single documents that are displayed not in a collection, handy for things like site settings and other global configurations.
@@ -129,14 +149,8 @@ export const settings = defineType({
         defineField({
           name: 'metadataBase',
           type: 'url',
-          description: (
-            <a
-              href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase"
-              rel="noreferrer noopener"
-            >
-              More information
-            </a>
-          ),
+          description: 'The base URL used for generating absolute metadata URLs.',
+          components: {input: MetadataBaseInput},
         }),
       ],
     }),
