@@ -1,6 +1,7 @@
 'use client'
 
 import {useRouter} from 'next/navigation'
+import {stegaClean} from 'next-sanity'
 
 interface VersionSwitcherProps {
   options: {
@@ -25,9 +26,11 @@ export function VersionSwitcher({
   if (!options?.length) return null
 
   const handleChange = (versionName: string) => {
+    console.log('VERISON NAME: ', versionName)
     const base = `/${locale}/products/${model}`
     const selected = options.find((v) => v.versionName === versionName)
-    const href = selected?.isDefault ? base : `${base}/${encodeURIComponent(versionName)}`
+
+    const href = selected?.isDefault ? base : `${base}/${stegaClean(versionName)}`
     router.push(href)
   }
 

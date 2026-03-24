@@ -1,6 +1,5 @@
 import {defineField, defineType} from 'sanity'
 import {adminOnlyReadOnly} from '../../lib/access'
-import {LOCALES} from 'shared'
 
 export const product = defineType({
   name: 'product',
@@ -28,17 +27,16 @@ export const product = defineType({
       readOnly: adminOnlyReadOnly,
     }),
     defineField({
+      name: 'language',
+      title: 'Language',
+      type: 'string',
+      readOnly: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'string',
       description: 'Legacy URL slug.',
-      readOnly: adminOnlyReadOnly,
-    }),
-    defineField({
-      name: 'language',
-      title: 'Language',
-      type: 'string',
-      options: {list: LOCALES},
       readOnly: adminOnlyReadOnly,
     }),
     defineField({
@@ -98,6 +96,19 @@ export const product = defineType({
           type: 'string',
           readOnly: adminOnlyReadOnly,
         },
+        defineField({
+          name: 'versionSlug',
+          title: 'Version Slug',
+          type: 'slug',
+          options: {
+            source: (_, {parent}) => {
+              const p = parent as {versionName?: string; description?: string}
+              return [p?.versionName, p?.description].filter(Boolean).join(' ')
+            },
+            maxLength: 96,
+          },
+          readOnly: adminOnlyReadOnly,
+        }),
       ],
       readOnly: adminOnlyReadOnly,
     }),

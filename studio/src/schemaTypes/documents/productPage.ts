@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import {LOCALES} from 'shared'
+import {isUniquePerLanguage} from '../../lib/isUniquePerLanguage'
 
 export const productPage = defineType({
   name: 'productPage',
@@ -18,18 +18,18 @@ export const productPage = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      group: 'content',
-      options: {source: 'title', maxLength: 96},
-    }),
-    defineField({
       name: 'language',
       title: 'Language',
       type: 'string',
       group: 'content',
-      options: {list: LOCALES},
+      readOnly: true,
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      group: 'content',
+      options: {source: 'title', maxLength: 96, isUnique: isUniquePerLanguage},
     }),
     defineField({
       name: 'products',

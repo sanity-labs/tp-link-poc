@@ -1,5 +1,4 @@
 import {defineField, defineType} from 'sanity'
-import {LOCALES} from 'shared'
 
 export const header = defineType({
   name: 'header',
@@ -10,7 +9,7 @@ export const header = defineType({
       name: 'language',
       title: 'Language',
       type: 'string',
-      options: {list: LOCALES},
+      readOnly: true,
     }),
     defineField({
       name: 'logoText',

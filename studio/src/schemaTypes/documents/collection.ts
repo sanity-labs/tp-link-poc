@@ -1,5 +1,5 @@
 import {defineField, defineType} from 'sanity'
-import {LOCALES} from 'shared'
+import {isUniquePerLanguage} from '../../lib/isUniquePerLanguage'
 
 export const collection = defineType({
   name: 'collection',
@@ -13,17 +13,17 @@ export const collection = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {source: 'title', maxLength: 96},
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: 'language',
       title: 'Language',
       type: 'string',
-      options: {list: LOCALES},
+      readOnly: true,
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {source: 'title', maxLength: 96, isUnique: isUniquePerLanguage},
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'image',

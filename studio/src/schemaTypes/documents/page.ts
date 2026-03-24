@@ -1,6 +1,6 @@
 import {defineField, defineType} from 'sanity'
 import {DocumentIcon} from '@sanity/icons'
-import {LOCALES} from 'shared'
+import {isUniquePerLanguage} from '../../lib/isUniquePerLanguage'
 
 /**
  * Page schema.  Define and edit the fields for the 'page' content type.
@@ -26,6 +26,12 @@ export const page = defineType({
     }),
 
     defineField({
+      name: 'language',
+      title: 'Language',
+      type: 'string',
+      readOnly: true,
+    }),
+    defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -38,13 +44,8 @@ export const page = defineType({
       options: {
         source: 'name',
         maxLength: 96,
+        isUnique: isUniquePerLanguage,
       },
-    }),
-    defineField({
-      name: 'language',
-      title: 'Language',
-      type: 'string',
-      options: {list: LOCALES},
     }),
     defineField({
       name: 'heading',
