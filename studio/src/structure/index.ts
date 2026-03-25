@@ -3,12 +3,12 @@ import {
   CogIcon,
   ComposeIcon,
   PackageIcon,
-  UsersIcon,
   HomeIcon,
   DesktopIcon,
   InsertAboveIcon,
   InsertBelowIcon,
   StackIcon,
+  FilterIcon,
 } from '@sanity/icons'
 import {AddDocumentIcon} from '@sanity/icons'
 import React, {type ComponentType} from 'react'
@@ -204,19 +204,11 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
 
       S.listItem()
         .title('Collections')
-        .icon(StackIcon)
-        .child(localeGroupedList(S, 'collection', 'Collections', apiVersion, StackIcon)),
+        .icon(FilterIcon)
+        .child(localeGroupedList(S, 'collection', 'Collections', apiVersion, FilterIcon)),
 
       S.listItem()
         .title('Products')
         .icon(PackageIcon)
         .child(localeGroupedList(S, 'product', 'Products', apiVersion, PackageIcon)),
-
-      // ── Tapo ─────────────────────────────────────────────
-      S.divider().title('Tapo'),
-
-      S.listItem()
-        .title('People')
-        .icon(UsersIcon)
-        .child(S.documentTypeList('person').title('People')),
     ])
