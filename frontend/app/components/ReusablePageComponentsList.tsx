@@ -31,12 +31,6 @@ export default function ReusablePageComponentsList({
             path: `components[_key=="${component._key}"]`,
           }).toString()
 
-          const refAttr = dataAttr({
-            id: component._id,
-            type: component._type,
-            path: `title`,
-          }).toString()
-
           if (Component) {
             return (
               <div key={component._key} data-sanity={blockAttr}>
