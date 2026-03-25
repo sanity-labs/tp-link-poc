@@ -13,6 +13,7 @@ export const link = defineType({
   title: 'Link',
   type: 'object',
   icon: LinkIcon,
+  options: {collapsible: true, collapsed: false},
   fields: [
     defineField({
       name: 'linkType',

@@ -16,13 +16,15 @@ export default function ReusablePageComponentsList({
     path: 'components',
   }).toString()
 
+  if (!components?.length) return null
+
   return (
-    components.length > 0 && (
+    components?.length > 0 && (
       <div
         className="mt-16 space-y-16 border-t border-slate-200 pt-16"
         data-sanity={componentsListAttr}
       >
-        {components.map((component: any) => {
+        {components?.map((component: any) => {
           const Component = productComponentMap[component._type]
           const blockAttr = dataAttr({
             id: pageId,

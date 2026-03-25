@@ -13,11 +13,16 @@ export const page = defineType({
   title: 'Page',
   type: 'document',
   icon: DocumentIcon,
+  groups: [
+    {name: 'content', title: 'Content', default: true},
+    {name: 'pageBuilder', title: 'Page Builder'},
+  ],
   fields: [
     defineField({
       name: 'name',
       title: 'Name',
       type: 'string',
+      group: 'content',
       hidden: ({document}) => document?._id?.includes('homePage') ?? false,
       validation: (Rule) =>
         Rule.custom((value, context) => {
@@ -30,12 +35,14 @@ export const page = defineType({
       name: 'language',
       title: 'Language',
       type: 'string',
+      group: 'content',
       readOnly: true,
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      group: 'content',
       hidden: ({document}) => document?._id?.includes('homePage') ?? false,
       validation: (Rule) =>
         Rule.custom((value, context) => {
@@ -52,17 +59,20 @@ export const page = defineType({
       name: 'heading',
       title: 'Heading',
       type: 'string',
+      group: 'content',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'subheading',
       title: 'Subheading',
       type: 'string',
+      group: 'content',
     }),
     defineField({
       name: 'components',
       title: 'Reusable Components',
       type: 'array',
+      group: 'pageBuilder',
       components: {
         input: PageBuilderInput,
       },

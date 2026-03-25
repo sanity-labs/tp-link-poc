@@ -43,6 +43,7 @@ export default defineConfig({
   dataset,
 
   plugins: [
+    structureTool({structure}),
     presentationTool({
       previewUrl: {
         origin: SANITY_STUDIO_PREVIEW_URL,
@@ -122,7 +123,7 @@ export default defineConfig({
         },
       },
     }),
-    structureTool({structure}),
+
     colorInput(),
     documentInternationalization({
       supportedLanguages: [...SUPPORTED_LANGUAGES],

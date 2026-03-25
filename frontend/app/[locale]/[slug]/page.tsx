@@ -21,9 +21,10 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
+  const {locale, slug} = await params
   const {data: page} = await sanityFetch({
     query: getPageQuery,
-    params: {slug: params.slug},
+    params: {slug, locale},
     stega: false,
   })
 
@@ -68,7 +69,6 @@ export default async function Page(props: Props) {
         </div>
       </div>
       <ReusablePageComponentsList pageId={page._id} pageType="page" components={components} />
-
     </div>
   )
 }

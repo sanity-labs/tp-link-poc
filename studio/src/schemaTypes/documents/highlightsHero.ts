@@ -4,33 +4,34 @@ export const highlightsHero = defineType({
   name: 'highlightsHero',
   title: 'Highlights Hero',
   type: 'document',
-  preview: {
-    prepare() {
-      return {
-        title: 'Insert Menu Previews',
-      }
-    },
-  },
+  groups: [
+    {name: 'content', title: 'Content', default: true},
+    {name: 'media', title: 'Media'},
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+      group: 'content',
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'string',
+      group: 'content',
     }),
     defineField({
       name: 'modelNumber',
       title: 'Model Number',
       type: 'string',
+      group: 'content',
     }),
     defineField({
       name: 'bgDesktopImage',
       title: 'Background Desktop Image',
       type: 'image',
+      group: 'media',
       options: {hotspot: true},
       fields: [{name: 'alt', type: 'string', title: 'Alt Text'}],
       validation: (Rule) => Rule.required(),
@@ -39,6 +40,7 @@ export const highlightsHero = defineType({
       name: 'bgMobileImage',
       title: 'Background Mobile Image',
       type: 'image',
+      group: 'media',
       options: {hotspot: true},
       fields: [{name: 'alt', type: 'string', title: 'Alt Text'}],
       validation: (Rule) => Rule.required(),

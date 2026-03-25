@@ -5,11 +5,17 @@ export const product = defineType({
   name: 'product',
   title: 'Product',
   type: 'document',
+  groups: [
+    {name: 'details', title: 'Details', default: true},
+    {name: 'catalog', title: 'Catalog'},
+    {name: 'media', title: 'Media'},
+  ],
   fields: [
     defineField({
       name: 'name',
       title: 'Product Name',
       type: 'string',
+      group: 'details',
       description: 'e.g., Omada 20-Port Gigabit Easy Managed Switch',
       readOnly: adminOnlyReadOnly,
     }),
@@ -17,12 +23,14 @@ export const product = defineType({
       name: 'modelNumber',
       title: 'Model Number',
       type: 'string',
+      group: 'details',
       readOnly: adminOnlyReadOnly,
     }),
     defineField({
       name: 'productId',
       title: 'Product ID',
       type: 'number',
+      group: 'details',
       validation: (Rule) => Rule.required(),
       readOnly: adminOnlyReadOnly,
     }),
@@ -30,12 +38,14 @@ export const product = defineType({
       name: 'language',
       title: 'Language',
       type: 'string',
+      group: 'details',
       readOnly: true,
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'string',
+      group: 'details',
       description: 'Legacy URL slug.',
       readOnly: adminOnlyReadOnly,
     }),
@@ -43,6 +53,7 @@ export const product = defineType({
       name: 'collection',
       title: 'Collection',
       type: 'array',
+      group: 'catalog',
       of: [
         {
           type: 'reference',
@@ -63,6 +74,7 @@ export const product = defineType({
       name: 'images',
       title: 'Product Images',
       type: 'array',
+      group: 'media',
       of: [
         {
           type: 'image',
@@ -77,6 +89,7 @@ export const product = defineType({
       name: 'features',
       title: 'Key Features',
       type: 'array',
+      group: 'details',
       of: [{type: 'string'}],
       readOnly: adminOnlyReadOnly,
     }),
@@ -84,6 +97,7 @@ export const product = defineType({
       name: 'links',
       title: 'Footer Links',
       type: 'array',
+      group: 'details',
       of: [
         {
           type: 'object',
@@ -99,6 +113,8 @@ export const product = defineType({
       name: 'versions',
       title: 'Version',
       type: 'object',
+      group: 'catalog',
+      options: {collapsible: true, collapsed: false},
       fields: [
         {name: 'versionName', title: 'Version Name', type: 'string', readOnly: adminOnlyReadOnly},
         {

@@ -32,17 +32,23 @@ export const settings = defineType({
   title: 'Settings',
   type: 'document',
   icon: CogIcon,
+  groups: [
+    {name: 'general', title: 'General', default: true},
+    {name: 'seo', title: 'SEO'},
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Title',
       type: 'string',
+      group: 'general',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'array',
+      group: 'general',
       of: [
         // Define a minified block content field for the description. https://www.sanity.io/docs/block-content
         defineArrayMember({
@@ -117,12 +123,14 @@ export const settings = defineType({
       name: 'primaryBrandColor',
       title: 'Primary Brand Color',
       type: 'color',
+      group: 'general',
       options: {disableAlpha: true},
     }),
     defineField({
       name: 'ogImage',
       title: 'Open Graph Image',
       type: 'image',
+      group: 'seo',
       description: 'Displayed on social cards and search engine results.',
       options: {
         hotspot: true,

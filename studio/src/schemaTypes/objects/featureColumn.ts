@@ -4,6 +4,7 @@ export const featureColumn = defineType({
   name: 'featureColumn',
   title: 'Feature Column',
   type: 'object',
+  options: {collapsible: true, collapsed: false},
   fields: [
     defineField({
       name: 'image',

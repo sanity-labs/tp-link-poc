@@ -6,6 +6,7 @@ export const infoSection = defineType({
   title: 'Info Section',
   type: 'object',
   icon: TextIcon,
+  options: {collapsible: true, collapsed: false},
   fields: [
     defineField({
       name: 'heading',
