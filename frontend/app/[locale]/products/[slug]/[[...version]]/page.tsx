@@ -4,8 +4,8 @@ import {localizedProductPageQuery} from '@/sanity/lib/queries'
 import {isValidLocale} from '@/sanity/lib/locale'
 import ProductHeroCarousel from '@/app/components/Carousel/ProductHero'
 import {VersionSwitcher} from '@/app/components/VersionSwitcher'
-import {productComponentMap} from '@/app/lib/productComponentMap'
 import {stegaClean} from 'next-sanity'
+import ReusablePageComponentsList from '@/app/components/ReusablePageComponentsList'
 
 interface ProductPageProps {
   params: Promise<{
@@ -139,17 +139,8 @@ export default async function LocalizedProductPage({params}: ProductPageProps) {
           </div>
         </div>
 
-        {components.length > 0 && (
-          <div className="mt-16 space-y-16 border-t border-slate-200 pt-16">
-            {components.map((block: any) => {
-              const Component = productComponentMap[block._type]
-              if (Component) {
-                return <Component key={block._id} data={block} />
-              }
-              return null
-            })}
-          </div>
-        )}
+        <ReusablePageComponentsList pageId={productPage._id} pageType="productPage" components={components} />
+        
       </article>
     </div>
   )

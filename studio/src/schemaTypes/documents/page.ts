@@ -59,22 +59,16 @@ export const page = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'pageBuilder',
-      title: 'Page Builder',
+      name: 'components',
+      title: 'Reusable Components',
       type: 'array',
-      of: [{type: 'callToAction'}, {type: 'infoSection'}],
-      options: {
-        insertMenu: {
-          // Configure the "Add Item" menu to display a thumbnail preview of the content type. https://www.sanity.io/docs/studio/array-type#efb1fe03459d
-          views: [
-            {
-              name: 'grid',
-              previewImageUrl: (schemaTypeName) =>
-                `/static/page-builder-thumbnails/${schemaTypeName}.webp`,
-            },
-          ],
-        },
-      },
+      of: [
+        {type: 'reference', name: 'highlightsHero', to: [{type: 'highlightsHero'}]},
+        {type: 'reference', name: 'iconOverview', to: [{type: 'iconOverview'}]},
+        {type: 'reference', name: 'contentImageBlock', to: [{type: 'contentImageBlock'}]},
+        {type: 'reference', name: 'featureOverviewBlock', to: [{type: 'featureOverviewBlock'}]},
+        {type: 'reference', name: 'legacyMigration', to: [{type: 'legacyMigration'}]},
+      ],
     }),
   ],
 })

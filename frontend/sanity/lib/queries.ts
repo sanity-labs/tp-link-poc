@@ -15,50 +15,6 @@ const linkFields = /* groq */ `
       }
 `
 
-export const getPageQuery = defineQuery(`
-  *[_type == 'page' && slug.current == $slug && language == $locale][0]{
-    _id,
-    _type,
-    name,
-    slug,
-    heading,
-    subheading,
-    "pageBuilder": pageBuilder[]{
-      ...,
-      _type == "callToAction" => {
-        ...,
-        button {
-          ...,
-          ${linkFields}
-        }
-      },
-      _type == "infoSection" => {
-        content[]{
-          ...,
-          markDefs[]{
-            ...,
-            ${linkReference}
-          }
-        }
-      },
-    },
-  }
-`)
-
-export const sitemapData = defineQuery(`
-  *[_type in ["page", "productPage", "collection"] && defined(slug.current)] | order(_type asc) {
-    "slug": slug.current,
-    _type,
-    _updatedAt,
-    "language": language,
-  }
-`)
-
-export const pagesSlugs = defineQuery(`
-  *[_type == "page" && defined(slug.current)]
-  {"slug": slug.current}
-`)
-
 // --- TP-Link product queries ---
 
 const imageUrlFragment = /* groq */ `
@@ -118,7 +74,9 @@ const legacyMigrationFragment = /* groq */ `
 
 const productComponentsProjection = /* groq */ `
   components[] {
-    _key, _type,
+    _id,
+    _key, 
+    _type,
     ...@-> {
       ...select(
         ${highlightsHeroFragment},
@@ -138,6 +96,32 @@ const productProjection = /* groq */ `
   features, links,
   versions{ versionName, description, "versionSlug": versionSlug.current }
 `
+
+export const getPageQuery = defineQuery(`
+  *[_type == 'page' && slug.current == $slug && language == $locale][0]{
+    _id,
+    _type,
+    name,
+    slug,
+    heading,
+    subheading,
+    ${productComponentsProjection},
+  }
+`)
+
+export const sitemapData = defineQuery(`
+  *[_type in ["page", "productPage", "collection"] && defined(slug.current)] | order(_type asc) {
+    "slug": slug.current,
+    _type,
+    _updatedAt,
+    "language": language,
+  }
+`)
+
+export const pagesSlugs = defineQuery(`
+  *[_type == "page" && defined(slug.current)]
+  {"slug": slug.current}
+`)
 
 export const headerQuery = defineQuery(`
   *[_type == "header" && (!defined($locale) || language == $locale)][0]{

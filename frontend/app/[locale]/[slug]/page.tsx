@@ -1,11 +1,10 @@
 import type {Metadata} from 'next'
 import Head from 'next/head'
 
-import PageBuilderPage from '@/app/components/PageBuilder'
 import {sanityFetch} from '@/sanity/lib/live'
 import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
-import {GetPageQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
+import ReusablePageComponentsList from '@/app/components/ReusablePageComponentsList'
 
 type Props = {
   params: Promise<{locale: string; slug: string}>
@@ -41,6 +40,7 @@ export default async function Page(props: Props) {
   const [{data: page}] = await Promise.all([
     sanityFetch({query: getPageQuery, params: {slug, locale}}),
   ])
+  const {components} = page
 
   if (!page?._id) {
     return (
@@ -67,7 +67,8 @@ export default async function Page(props: Props) {
           </div>
         </div>
       </div>
-      <PageBuilderPage page={page as GetPageQueryResult} locale={locale} />
+      <ReusablePageComponentsList pageId={page._id} pageType="page" components={components} />
+
     </div>
   )
 }
